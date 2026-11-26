@@ -1,18 +1,17 @@
 // Entry for the make.fun bounty "Sum up 25 November's world news in one image"
 // (news-image-20261125).
 //
-// The program writes the pre-rendered summary image held in this repository
-// (assets/entry.png, 1024x1024 PNG) to /output/entry.png. It is the simplest
-// program the brief allows: a deterministic copy of an image the repository
-// holds. No network, no randomness, no environment input — every run writes
-// the same bytes.
+// The entry ships its picture as a file in this repository: assets/entry.png,
+// a 1024x1024 PNG drawn in code by scripts/render.py. Running this program
+// copies that file to /output/entry.png. No network access, no randomness,
+// no environment input — every run writes the same bytes as the last one.
 import { copyFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot: string = dirname(fileURLToPath(import.meta.url));
-const source: string = join(repoRoot, "assets", "entry.png");
-const output: string = "/output/entry.png";
+const sourceImage: string = join(repoRoot, "assets", "entry.png");
+const destination: string = "/output/entry.png";
 
-mkdirSync(dirname(output), { recursive: true });
-copyFileSync(source, output);
+mkdirSync(dirname(destination), { recursive: true });
+copyFileSync(sourceImage, destination);
